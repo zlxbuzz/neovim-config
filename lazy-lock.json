@@ -1,6 +1,16 @@
 {
-  "lazy.nvim": { "branch": "main", "commit": "761b8388af5bcb451e30d886163fcd129278e1d1" },
+  "alpha-nvim": { "branch": "main", "commit": "1838ae926e8d49fe5330d1498ee8289ae2c340bc" },
+  "barbar.nvim": { "branch": "master", "commit": "f0212c318e0f118ccb0e6166198895f78aa87efd" },
+  "fzf": { "branch": "master", "commit": "448d7e0c5a717128d499f6a09a978b7addd1d925" },
+  "fzf.vim": { "branch": "master", "commit": "dc71692255b62d1f67dc55c8e51ab1aa467b1d46" },
+  "image.nvim": { "branch": "main", "commit": "eef32a352d490374d19edfaef4bc0ad4f7a11074" },
+  "lazy.nvim": { "branch": "main", "commit": "e6bf3a0d9c4899dcf832270f79bb1cee8fbc506e" },
+  "lualine-copilot": { "branch": "main", "commit": "9b441d06031cef3cf0ca82a6363189aeeea297ca" },
+  "lualine.nvim": { "branch": "master", "commit": "05d78e9fd0cdfb4545974a5aa14b1be95a86e9c9" },
   "nerdtree": { "branch": "master", "commit": "fc85a6f07c2cd694be93496ffad75be126240068" },
   "nerdtree-git-plugin": { "branch": "master", "commit": "e1fe727127a813095854a5b063c15e955a77eafb" },
-  "nvim-base16": { "branch": "master", "commit": "4f3aa29f49b38edb6db1c52cea57e64ce3de2373" }
+  "nvim-base16": { "branch": "master", "commit": "4f3aa29f49b38edb6db1c52cea57e64ce3de2373" },
+  "nvim-web-devicons": { "branch": "master", "commit": "2a125024a137677930efcfdf720f205504c97268" },
+  "plenary.nvim": { "branch": "master", "commit": "499e0743cf5e8075cd32af68baa3946a1c76adf1" },
+  "telescope.nvim": { "branch": "master", "commit": "6d3fbffe426794296a77bb0b37b6ae0f4f14f807" }
 }

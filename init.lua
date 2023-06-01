@@ -1,6 +1,5 @@
 -- 基本设置
 require('basic')
-
 -- 按键绑定
 require('keybindings')
 

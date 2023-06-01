@@ -17,7 +17,7 @@ return {
         " 目录树菜单操作
         let g:NERDTreeMapMenu = 'o'
         " 自动打开
-        autocmd vimenter * NERDTree
+"       autocmd vimenter * NERDTree
         " NerdTree没有箭头
         let g:NERDTreeDirArrows = 0
 
