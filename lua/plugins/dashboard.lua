@@ -34,7 +34,7 @@ return {
     -- Set menu
 dashboard.section.buttons.val = {
     dashboard.button( "e", "  New file" , ":ene <BAR> startinsert <CR>"),
-    dashboard.button( "f", "  File tree" , ":NERDTree <CR>|<C-L>| :q <CR> "),
+    dashboard.button( "f", "  File tree" , ":ene <CR> | :NERDTree <CR>"),
     dashboard.button( "r", "  Recent"   , ":Telescope oldfiles<CR>"),
     dashboard.button( "s", "  Settings" , ":e $MYVIMRC <CR>"),
     dashboard.button( "Leader s l", "  Open last session" ),
