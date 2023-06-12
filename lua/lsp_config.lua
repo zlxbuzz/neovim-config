@@ -8,10 +8,23 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local nvim_lsp = require("lspconfig")
 -- lua
 nvim_lsp.lua_ls.setup({
-  capabilities = capabilities
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      -- 过滤vim报错
+      diagnostics = {
+        globals = { "vim", "hs" },
+      },
+    }
+  }
 })
 -- ts
 nvim_lsp.tsserver.setup({
+  capabilities = capabilities
+})
+
+-- volar
+nvim_lsp.volar.setup({
   capabilities = capabilities
 })
 

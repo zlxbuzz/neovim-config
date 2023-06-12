@@ -17,13 +17,16 @@ vim.keymap.set("n", "<Leader>]", "<C-i>", opt)
 vim.keymap.set("n", "j", [[v:count ? 'j' : 'gj']], { noremap = true, expr = true })
 vim.keymap.set("n", "k", [[v:count ? 'k' : 'gk']], { noremap = true, expr = true })
 -- 屏幕大小缩放
-vim.keymap.set("n", "<C-Left>", ":vertical resize +5<CR>", opts)
-vim.keymap.set("n", "<C-Right>", ":vertical resize -5<CR>", opts)
-vim.keymap.set("n", "<C-Up>", ":resize +5<CR>", opts)
+vim.keymap.set("n", "<C-Left>", ":vertical resize +5<CR>", opt)
+vim.keymap.set("n", "<C-Right>", ":vertical resize -5<CR>", opt)
+vim.keymap.set("n", "<C-Up>", ":resize +5<CR>", opt)
 -- 上下移动选中文本
-vim.keymap.set("n", "<C-Down>", ":resize -5<CR>", opts)
+vim.keymap.set("n", "<C-Down>", ":resize -5<CR>", opt)
 -- visual模式缩进
-vim.keymap.set("v", "<", "<gv", opts)
-vim.keymap.set("v", ">", ">gv", opts)
+vim.keymap.set("v", "<", "<gv", opt)
+vim.keymap.set("v", ">", ">gv", opt)
 vim.keymap.set("v", "J", ":move '>+1<CR>gv-gv", opt)
 vim.keymap.set("v", "K", ":move '<-2<CR>gv-gv", opt)
+--- 注释
+vim.keymap.set("n", "<Leader>c", "gcc", { remap = true })
+vim.keymap.set('v', '<Leader>c', 'gc', { remap = true })
