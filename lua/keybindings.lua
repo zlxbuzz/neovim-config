@@ -30,3 +30,9 @@ vim.keymap.set("v", "K", ":move '<-2<CR>gv-gv", opt)
 --- 注释
 vim.keymap.set("n", "<Leader>c", "gcc", { remap = true })
 vim.keymap.set('v', '<Leader>c', 'gc', { remap = true })
+vim.keymap.set("n", "<Leader>x", "gcc", { remap = true })
+vim.keymap.set('v', '<Leader>x', 'gc', { remap = true })
+
+-- buffer 选择
+vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opt)
+vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>', opt)
