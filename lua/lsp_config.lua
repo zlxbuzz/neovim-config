@@ -25,7 +25,8 @@ nvim_lsp.tsserver.setup({
 
 -- volar
 nvim_lsp.volar.setup({
-	capabilities = capabilities
+	capabilities = capabilities,
+	filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }
 })
 
 local null_ls = require("null-ls")
