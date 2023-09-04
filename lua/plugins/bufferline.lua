@@ -1,3 +1,4 @@
+-- 将buffer文件通过标签栏展示
 return {
 	{
 		"romgrk/barbar.nvim",

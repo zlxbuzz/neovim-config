@@ -1,3 +1,4 @@
+-- lsp相关配置，包括快捷键绑定
 -- lsp加载
 require('mason').setup()
 require('mason-lspconfig').setup()
@@ -23,7 +24,7 @@ nvim_lsp.tsserver.setup({
 	capabilities = capabilities
 })
 
--- volar
+-- vue
 nvim_lsp.volar.setup({
 	capabilities = capabilities,
 	filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }
@@ -82,7 +83,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 		end, opts)
 		vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-		vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+		-- vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+		-- 通过lspsaga美化
+		vim.keymap.set('n', '<space>rn', "<cmd>Lspsaga rename ++project<cr>", opts)
 		vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
 		vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
 		-- 格式化

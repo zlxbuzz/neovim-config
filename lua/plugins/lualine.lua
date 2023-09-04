@@ -1,3 +1,4 @@
+-- 状态栏美化
 return {
 	event = "VeryLazy",
 	"nvim-lualine/lualine.nvim",
