@@ -2,7 +2,8 @@ return {
 	-- lsp配置,直接加载配置文件
 	{
 		"neovim/nvim-lspconfig",
-		event = "VeryLazy",
+		-- 不要用veryLazy,否则单独打开文件不会启动lsp服务
+		-- event = "VeryLazy",
 		config = function()
 			require("neodev").setup({})
 			require("lspsaga").setup()
@@ -18,18 +19,15 @@ return {
 	-- 管理安装lsp,dap,formmat
 	{
 		"williamboman/mason.nvim",
-		event = "VeryLazy",
 		build = ":MasonUpdate",
 	},
 	-- 自动关联lsconfig和mason
 	{
 		"williamboman/mason-lspconfig.nvim",
-		event = "VeryLazy"
 	},
 	-- 格式化
 	{
-		"jose-elias-alvarez/null-ls.nvim",
-		event = "VeryLazy"
+		"jose-elias-alvarez/null-ls.nvim"
 	},
 	-- lsp加载过程的ui界面
 	{

@@ -1,34 +1,73 @@
 -- lsp相关配置，包括快捷键绑定
 -- lsp加载
 require('mason').setup()
-require('mason-lspconfig').setup()
 
-
--- Set up lspconfig.
+-- 给lsp添加自动补全的能力，结合cmp插件
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
-local nvim_lsp = require("lspconfig")
--- lua
-nvim_lsp.lua_ls.setup({
-	capabilities = capabilities,
-	settings = {
+local on_attach    = function(_, bufnr)
+	-- Enable completion triggered by <c-x><c-o>
+	vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+	-- Buffer local mappings.
+	-- See `:help vim.lsp.*` for documentation on any of the below functions
+	local opts = { buffer = bufnr }
+	-- 跳转到当前光标处词条（会用下划线标出）的声明位置。按<C-t>跳转回去。
+	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+	-- 跳转到当前光标处词条的定义位置。按<C-t>跳转回去。
+	vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+	-- 展示当前光标处词条的详细信息（如变量的类别信息/函数的签名/库的介绍等）。
+	vim.keymap.set('n', 'K', "<cmd>Lspsaga hover_doc<cr>", opts)
+	-- 展示当前光标处词条的所有实现
+	vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+	vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+	vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+	vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+	vim.keymap.set('n', '<space>wl', function()
+		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+	end, opts)
+	vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+	-- 通过lspsaga美化
+	vim.keymap.set('n', '<space>rn', "<cmd>Lspsaga rename ++project<cr>", opts)
+	vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+	vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+	-- 查看所有语法错误
+	vim.keymap.set('n', '<leader>da', require "telescope.builtin".diagnostics, opts)
+	-- 格式化
+	vim.keymap.set('n', '<leader>f', function()
+		vim.lsp.buf.format { async = true }
+	end, opts)
+end
+-- 设置不同语言
+local servers      = {
+	lua_ls = {
 		Lua = {
 			-- 过滤全局vim变量报错
 			diagnostics = {
 				globals = { "vim", "hs" },
 			},
 		}
+	},
+	tsserver = {},
+	html = {},
+	volar = {
+		filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }
 	}
-})
--- ts
-nvim_lsp.tsserver.setup({
-	capabilities = capabilities
+}
+require('mason-lspconfig').setup({
+	ensure_installed = vim.tbl_keys(servers),
+	handlers         = {
+		function(server_name)
+			require('lspconfig')[server_name].setup {
+				settings = server_name[server_name],
+				on_attach = on_attach,
+				capabilities = capabilities
+			}
+		end
+
+	}
+
 })
 
--- vue
-nvim_lsp.volar.setup({
-	capabilities = capabilities,
-	filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }
-})
 
 local null_ls = require("null-ls")
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -58,42 +97,6 @@ null_ls.setup({
 })
 
 
--- lsp快捷键
-vim.api.nvim_create_autocmd('LspAttach', {
-	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-	callback = function(ev)
-		-- Enable completion triggered by <c-x><c-o>
-		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-		-- Buffer local mappings.
-		-- See `:help vim.lsp.*` for documentation on any of the below functions
-		local opts = { buffer = ev.buf }
-		-- 跳转到当前光标处词条（会用下划线标出）的声明位置。按<C-t>跳转回去。
-		vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-		-- 跳转到当前光标处词条的定义位置。按<C-t>跳转回去。
-		vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-		-- 展示当前光标处词条的详细信息（如变量的类别信息/函数的签名/库的介绍等）。
-		vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-		-- 展示当前光标处词条的所有实现
-		vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-		vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-		vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-		vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-		vim.keymap.set('n', '<space>wl', function()
-			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-		end, opts)
-		vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-		-- vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-		-- 通过lspsaga美化
-		vim.keymap.set('n', '<space>rn', "<cmd>Lspsaga rename ++project<cr>", opts)
-		vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-		vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-		-- 格式化
-		vim.keymap.set('n', '<leader>f', function()
-			vim.lsp.buf.format { async = true }
-		end, opts)
-	end,
-})
 
 
 -- git修改内容提示

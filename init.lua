@@ -1,6 +1,5 @@
 -- 提升速度
-vim.loader.enable()
--- 基本设置
+vim.loader.enable() -- 基本设置
 require('basic')
 -- 按键绑定
 require('keybindings')

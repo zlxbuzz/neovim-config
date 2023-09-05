@@ -43,3 +43,6 @@ vim.o.termguicolors = true
 -- vim.o.undofile = true
 -- 分屏在右侧
 vim.o.splitright = true
+
+-- 窗口复制模式
+vim.o.mouse = ''
