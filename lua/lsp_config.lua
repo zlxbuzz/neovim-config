@@ -32,6 +32,8 @@ local on_attach    = function(_, bufnr)
 	vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
 	-- 查看所有语法错误
 	vim.keymap.set('n', '<leader>da', require "telescope.builtin".diagnostics, opts)
+	-- 查看语法错误
+	vim.keymap.set('n', '<space>e', '<cmd>Lspsaga diagnostic_jump_next<cr>', opts)
 	-- 格式化
 	vim.keymap.set('n', '<leader>f', function()
 		vim.lsp.buf.format { async = true }
@@ -49,6 +51,7 @@ local servers      = {
 	},
 	tsserver = {},
 	html = {},
+	jsonls = {},
 	volar = {
 		filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }
 	}

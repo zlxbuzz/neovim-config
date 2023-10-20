@@ -36,7 +36,7 @@ return {
 		dashboard.section.buttons.val = {
 			dashboard.button("f", "  File tree", ":ene <CR> | :NERDTree <CR>"),
 			dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
-			dashboard.button("r", "  Recent", "<leader>qs | <leader>t"),
+			dashboard.button("r", "  Recent", "<leader>qs | <leader>t |<C-l>"),
 			dashboard.button("s", "  Settings", ":e $MYVIMRC <CR>"),
 			dashboard.button("Leader s l", "  Open last session"),
 			dashboard.button("q", "  Quit NVIM", ":qa<CR>")
