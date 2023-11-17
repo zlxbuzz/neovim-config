@@ -49,6 +49,9 @@ local servers      = {
 			},
 		}
 	},
+	cssls = {},
+
+	-- Todo: js,jsx可能遇到重复的completion问题，待发现
 	tsserver = {},
 	html = {},
 	jsonls = {},
@@ -61,7 +64,7 @@ require('mason-lspconfig').setup({
 	handlers         = {
 		function(server_name)
 			require('lspconfig')[server_name].setup {
-				settings = server_name[server_name],
+				settings = servers[server_name],
 				on_attach = on_attach,
 				capabilities = capabilities
 			}
