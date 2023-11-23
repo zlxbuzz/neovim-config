@@ -39,3 +39,9 @@ vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>', opt)
 
 -- 选中内容复制到剪切板
 vim.keymap.set({ "v", "n" }, "<leader>y", "\"+y")
+
+
+-- volar不会自动检测lsp，暂时保存的时候触发restart
+vim.cmd [[
+  autocmd BufWritePost * if &filetype == 'vue' | LspRestart
+]]
