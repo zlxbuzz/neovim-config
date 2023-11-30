@@ -45,16 +45,16 @@ vim.keymap.set({ "v", "n" }, "<leader>y", "\"+y")
 --   autocmd BufWritePost * if &filetype == 'vue' | LspRestart
 -- ]]
 
--- volar不会自动检测lsp，暂时保存的时候触发restart
-function enterVueBuffer()
-	local file_type = vim.bo.filetype
-
-	-- 检查文件类型是否为 Vue
-	if file_type == 'vue' then
-		-- 在这里添加针对 Vue 文件的命令
-		vim.cmd('LspRestart')
-	end
-end
+-- volar不会自动检测lsp，暂时保存的时候触发restart, 1.8.24解决
+-- function enterVueBuffer()
+-- 	local file_type = vim.bo.filetype
+--
+-- 	-- 检查文件类型是否为 Vue
+-- 	if file_type == 'vue' then
+-- 		-- 在这里添加针对 Vue 文件的命令
+-- 		vim.cmd('LspRestart')
+-- 	end
+-- end
 
 -- 创建自动命令，当进入 buffer 时调用上面定义的函数
-vim.api.nvim_command("autocmd BufEnter *.vue lua enterVueBuffer()")
+-- vim.api.nvim_command("autocmd BufEnter *.vue lua enterVueBuffer()")

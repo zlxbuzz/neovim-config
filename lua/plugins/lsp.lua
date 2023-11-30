@@ -3,7 +3,7 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		-- 不要用veryLazy,否则单独打开文件不会启动lsp服务
-		-- event = "VeryLazy",
+		event = {"BufReadPost","BufNewFile"},
 		config = function()
 			require("neodev").setup({})
 			require("lspsaga").setup()

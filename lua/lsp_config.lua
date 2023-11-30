@@ -1,10 +1,28 @@
 -- lsp相关配置，包括快捷键绑定
--- lsp加载
-require('mason').setup()
+-- require("neoconf").setup({})
 
--- 给lsp添加自动补全的能力，结合cmp插件
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-local on_attach    = function(_, bufnr)
+-- 设置不同语言
+local servers   = {
+	lua_ls = {
+		Lua = {
+			-- 过滤全局vim变量报错
+			diagnostics = {
+				globals = { "vim", "hs" },
+			},
+		}
+	},
+	cssls = {},
+
+	-- Todo: js,jsx可能遇到重复的completion问题，待发现
+	tsserver = {},
+	html = {},
+	jsonls = {},
+	volar = {
+		filetypes = { 'typescript', 'javascript', 'vue' }
+	}
+}
+
+local on_attach = function(_, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
 	vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
@@ -39,40 +57,28 @@ local on_attach    = function(_, bufnr)
 		vim.lsp.buf.format { async = true }
 	end, opts)
 end
--- 设置不同语言
-local servers      = {
-	lua_ls = {
-		Lua = {
-			-- 过滤全局vim变量报错
-			diagnostics = {
-				globals = { "vim", "hs" },
-			},
-		}
-	},
-	cssls = {},
 
-	-- Todo: js,jsx可能遇到重复的completion问题，待发现
-	tsserver = {},
-	html = {},
-	jsonls = {},
-	volar = {
-		filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }
-	}
-}
+-- lsp加载
+require('mason').setup()
+
+-- 给lsp添加自动补全的能力，结合cmp插件
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
 require('mason-lspconfig').setup({
+	-- 自动安装
 	ensure_installed = vim.tbl_keys(servers),
-	handlers         = {
-		function(server_name)
-			require('lspconfig')[server_name].setup {
-				settings = servers[server_name],
+})
+for server, config in pairs(servers) do
+	require("lspconfig")[server].setup(
+		vim.tbl_deep_extend("keep",
+			{
 				on_attach = on_attach,
 				capabilities = capabilities
-			}
-		end
-
-	}
-
-})
+			},
+			config
+		)
+	)
+end
 
 
 local null_ls = require("null-ls")

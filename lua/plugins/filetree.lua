@@ -11,6 +11,9 @@ return {
 		       let g:NERDTreeMinimalMenu=1
 		       let g:NERDTreeMinimalUI = 1
 		       let g:NERDTreeWinSize = 27
+					  " 显示隐藏文件
+					 let g:NERDTreeShowHidden = 1
+
 
 		        " 默认是否用 l 代替 o 打开文件
 		        let g:NERDTreeMapActivateNode= 'l'
