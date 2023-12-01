@@ -34,11 +34,16 @@ vim.keymap.set("n", "<Leader>x", "gcc", { remap = true })
 vim.keymap.set('v', '<Leader>x', 'gc', { remap = true })
 
 -- buffer 选择
-vim.keymap.set('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opt)
-vim.keymap.set('n', '<A-.>', '<Cmd>BufferNext<CR>', opt)
+vim.keymap.set('n', '<Space>l', ':BufferNext<CR>', opt)
+vim.keymap.set('n', '<Space><Tab>', ':BufferNext<CR>', opt)
+vim.keymap.set('n', '<Space>h', ':BufferPrevious<CR>', opt)
+vim.keymap.set('n', '<Space>q', ':BufferClose<CR>', opt)
 
 -- 选中内容复制到剪切板
 vim.keymap.set({ "v", "n" }, "<leader>y", "\"+y")
+
+
+-- 切换buffer
 
 
 -- vim.cmd [[

@@ -37,7 +37,8 @@ vim.o.showmode = false
 -- 设置 timeoutlen 为等待键盘快捷键连击时间500毫秒，可根据需要设置
 vim.o.timeoutlen = 500
 -- 不允许隐藏被修改过的buffer,tsserver lsp有个坑，4.1.0及以上无法重新检测,暂时关闭
-vim.o.hidden = false
+-- vim.o.hidden = false
+vim.o.hidden = true
 -- 开启真颜色
 vim.o.termguicolors = true
 -- vim.o.undofile = true
