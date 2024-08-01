@@ -10,8 +10,8 @@ return {
 			"SmiteshP/nvim-navic",
 		},
 		config = function()
-			-- require("barbecue").setup({
-			-- })
+			require("barbecue").setup({
+			})
 		end
 	}
 }

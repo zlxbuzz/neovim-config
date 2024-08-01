@@ -4,6 +4,8 @@
 
 -- 行号展示
 vim.o.number = true
+-- 自动识别UNIX格式
+vim.o.fileformats = unix
 -- utf8
 vim.g.encoding = "UTF-8"
 vim.o.fileencoding = 'utf-8'

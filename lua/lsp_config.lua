@@ -12,13 +12,26 @@ local servers   = {
 		}
 	},
 	cssls = {},
-
+	emmet_ls = {
+		filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
+		init_options = {
+			html = {
+				options = {
+					-- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L26
+					["bem.enabled"] = true,
+				},
+			},
+		},
+	},
+	tailwindcss = {},
+	unocss = {},
 	-- Todo: js,jsx可能遇到重复的completion问题，待发现
 	tsserver = {},
 	html = {},
 	jsonls = {},
 	volar = {
-		filetypes = { 'typescript', 'javascript', 'vue' }
+		-- 必须配置 否则会有无法验证ts的bug
+		filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }
 	}
 }
 
@@ -63,6 +76,9 @@ require('mason').setup()
 
 -- 给lsp添加自动补全的能力，结合cmp插件
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 
 require('mason-lspconfig').setup({
 	-- 自动安装

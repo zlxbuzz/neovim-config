@@ -28,8 +28,8 @@ vim.keymap.set("v", ">", ">gv", opt)
 vim.keymap.set("v", "J", ":move '>+1<CR>gv-gv", opt)
 vim.keymap.set("v", "K", ":move '<-2<CR>gv-gv", opt)
 --- 注释
-vim.keymap.set("n", "<Leader>c", "gcc", { remap = true })
-vim.keymap.set('v', '<Leader>c', 'gc', { remap = true })
+vim.keymap.set("n", "<Leader>c", "gbc", { remap = true })
+vim.keymap.set('v', '<Leader>c', 'gb', { remap = true })
 vim.keymap.set("n", "<Leader>x", "gcc", { remap = true })
 vim.keymap.set('v', '<Leader>x', 'gc', { remap = true })
 
@@ -37,6 +37,7 @@ vim.keymap.set('v', '<Leader>x', 'gc', { remap = true })
 vim.keymap.set('n', '<Space>l', ':BufferNext<CR>', opt)
 vim.keymap.set('n', '<Space><Tab>', ':BufferNext<CR>', opt)
 vim.keymap.set('n', '<Space>h', ':BufferPrevious<CR>', opt)
+vim.keymap.set('n', '<Space>a', ':BufferCloseAllButCurrent<CR>', opt)
 vim.keymap.set('n', '<Space>q', ':BufferClose<CR>', opt)
 
 -- 选中内容复制到剪切板
