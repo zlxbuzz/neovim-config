@@ -26,7 +26,24 @@ local servers   = {
 	tailwindcss = {},
 	unocss = {},
 	-- Todo: js,jsx可能遇到重复的completion问题，待发现
-	tsserver = {},
+	tsserver = {
+		-- Volar 2.0 需要特殊配置全局install @vue/typescript-plugin
+		init_options = {
+			plugins = {
+				{
+					name = "@vue/typescript-plugin",
+					location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
+					languages = { "javascript", "typescript", "vue" },
+				},
+			},
+		},
+		filetypes = {
+			"javascript",
+			"typescript",
+			"vue",
+		},
+
+	},
 	html = {},
 	jsonls = {},
 	volar = {
