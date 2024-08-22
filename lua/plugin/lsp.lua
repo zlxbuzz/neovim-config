@@ -6,7 +6,9 @@ return {
 		event = { "BufReadPost", "BufNewFile" },
 		config = function()
 			require("neodev").setup({})
+			-- 美化展示lsp相关功能
 			require("lspsaga").setup()
+			-- 加载lsp_config文件
 			require('lsp_config')
 		end,
 		dependencies = {

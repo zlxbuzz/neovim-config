@@ -11,45 +11,43 @@ local servers   = {
 			},
 		}
 	},
+	eslint = {},
 	cssls = {},
-	emmet_ls = {
-		filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
-		init_options = {
-			html = {
-				options = {
-					-- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L26
-					["bem.enabled"] = true,
-				},
-			},
-		},
-	},
-	tailwindcss = {},
-	unocss = {},
-	-- Todo: js,jsx可能遇到重复的completion问题，待发现
-	tsserver = {
-		-- Volar 2.0 需要特殊配置全局install @vue/typescript-plugin
-		init_options = {
-			plugins = {
-				{
-					name = "@vue/typescript-plugin",
-					location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
-					languages = { "javascript", "typescript", "vue" },
-				},
-			},
-		},
-		filetypes = {
-			"javascript",
-			"typescript",
-			"vue",
-		},
-
-	},
-	html = {},
-	jsonls = {},
-	volar = {
-		-- 必须配置 否则会有无法验证ts的bug
-		filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' }
-	}
+	-- emmet_ls = {
+	-- 	filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
+	-- 	init_options = {
+	-- 		html = {
+	-- 			options = {
+	-- 				-- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L26
+	-- 				["bem.enabled"] = true,
+	-- 			},
+	-- 		},
+	-- 	},
+	-- },
+	-- tailwindcss = {},
+	-- tsserver = {
+	-- 	-- Volar 2.0不提供tsserver, 需要特殊配置全局install @vue/typescript-plugin
+	-- 	init_options = {
+	-- 		plugins = {
+	-- 			{
+	-- 				name = "@vue/typescript-plugin",
+	-- 				location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
+	-- 				languages = { "javascript", "typescript", "vue" },
+	-- 			},
+	-- 		},
+	-- 	},
+	-- 	filetypes = {
+	-- 		"javascript",
+	-- 		"typescript",
+	-- 		"vue",
+	-- 	},
+	--
+	-- },
+	-- html = {},
+	-- jsonls = {},
+	-- volar = {
+	-- 	filetypes = { 'typescript', 'javascript', 'vue' }
+	-- }
 }
 
 local on_attach = function(_, bufnr)
@@ -99,14 +97,14 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 require('mason-lspconfig').setup({
 	-- 自动安装
-	ensure_installed = vim.tbl_keys(servers),
+	-- ensure_installed = vim.tbl_keys(servers),
 })
 for server, config in pairs(servers) do
 	require("lspconfig")[server].setup(
 		vim.tbl_deep_extend("keep",
 			{
 				on_attach = on_attach,
-				capabilities = capabilities
+				-- capabilities = capabilities
 			},
 			config
 		)
@@ -114,34 +112,32 @@ for server, config in pairs(servers) do
 end
 
 
-local null_ls = require("null-ls")
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
--- register any number of sources simultaneously
-local sources = {
-	null_ls.builtins.formatting.lua_format,
-	null_ls.builtins.formatting.prettier,
-}
-
-null_ls.setup({
-	sources = sources,
-	on_attach = function(client, bufnr)
-		if client.supports_method("textDocument/formatting") then
-			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				group = augroup,
-				buffer = bufnr,
-				callback = function()
-					-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
-					-- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
-					vim.lsp.buf.format({ async = false })
-				end,
-			})
-		end
-	end,
-})
-
-
+-- local null_ls = require("null-ls")
+-- local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+--
+-- -- register any number of sources simultaneously
+-- local sources = {
+-- 	null_ls.builtins.formatting.lua_format,
+-- 	null_ls.builtins.formatting.prettier,
+-- }
+--
+-- null_ls.setup({
+-- 	sources = sources,
+-- 	on_attach = function(client, bufnr)
+-- 		if client.supports_method("textDocument/formatting") then
+-- 			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+-- 			vim.api.nvim_create_autocmd("BufWritePre", {
+-- 				group = augroup,
+-- 				buffer = bufnr,
+-- 				callback = function()
+-- 					-- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+-- 					-- on later neovim version, you should use vim.lsp.buf.format({ async = false }) instead
+-- 					vim.lsp.buf.format({ async = false })
+-- 				end,
+-- 			})
+-- 		end
+-- 	end,
+-- })
 
 
 -- git修改内容提示

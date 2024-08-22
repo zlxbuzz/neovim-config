@@ -4,14 +4,14 @@ return {
 		"RRethy/nvim-base16",
 		lazy = true,
 	},
-	{
-		"utilyre/barbecue.nvim",
-		dependencies = {
-			"SmiteshP/nvim-navic",
-		},
-		config = function()
-			require("barbecue").setup({
-			})
-		end
-	}
+	-- {
+	-- 	"utilyre/barbecue.nvim",
+	-- 	dependencies = {
+	-- 		"SmiteshP/nvim-navic",
+	-- 	},
+	-- 	config = function()
+	-- 		require("barbecue").setup({
+	-- 		})
+	-- 	end
+	-- }
 }
