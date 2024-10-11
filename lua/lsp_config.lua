@@ -13,17 +13,17 @@ local servers   = {
 	},
 	eslint = {},
 	cssls = {},
-	-- emmet_ls = {
-	-- 	filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
-	-- 	init_options = {
-	-- 		html = {
-	-- 			options = {
-	-- 				-- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L26
-	-- 				["bem.enabled"] = true,
-	-- 			},
-	-- 		},
-	-- 	},
-	-- },
+	emmet_ls = {
+		filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
+		init_options = {
+			html = {
+				options = {
+					-- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L26
+					["bem.enabled"] = true,
+				},
+			},
+		},
+	},
 	tailwindcss = {},
 	tsserver = {
 		-- Volar 2.0不提供tsserver, 需要特殊配置全局install @vue/typescript-plugin
@@ -37,6 +37,7 @@ local servers   = {
 			},
 		},
 		filetypes = {
+			"typescriptreact",
 			"javascript",
 			"typescript",
 			"vue",

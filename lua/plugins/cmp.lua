@@ -2,11 +2,12 @@
 return {
 	"hrsh7th/nvim-cmp",
 	dependencies = {
-		'hrsh7th/cmp-nvim-lsp',
-		'hrsh7th/cmp-buffer',
-		'hrsh7th/cmp-path',
-		'hrsh7th/cmp-cmdline',
-		'hrsh7th/nvim-cmp',
+		'hrsh7th/cmp-nvim-lsp', -- 基于lsp
+		'hrsh7th/cmp-buffer', -- 打开文件内容解析
+		'hrsh7th/cmp-path',   -- 路径补全
+		'hrsh7th/cmp-cmdline', -- 解析命令行
+		'hrsh7th/nvim-cmp',   -- 核心
+		'onsails/lspkind-nvim', -- 图标
 		{
 			'saadparwaiz1/cmp_luasnip',
 			dependencies = {
@@ -27,9 +28,11 @@ return {
 		end
 
 
+		-- 加载friendly-snippets
 		require("luasnip.loaders.from_vscode").lazy_load()
-		local cmp = require 'cmp'
+		local cmp     = require 'cmp'
 		local luasnip = require 'luasnip'
+		local lspkind = require 'lspkind'
 
 
 		cmp.setup({
@@ -65,15 +68,29 @@ return {
 			}),
 			-- 设置补全的来源
 			sources = cmp.config.sources({
-				-- lsp
-				{ name = 'nvim_lsp' },
-				-- 路径
-				{ name = 'path' },
-				-- 代码模块
-				{ name = 'luasnip' }, -- For luasnip users.
-				-- buffer,当前buffer内容
-				{ name = 'buffer' },
-			})
+					-- lsp
+					{ name = 'nvim_lsp' },
+					{ name = 'luasnip' }, -- For luasnip users.
+				},
+				{
+					-- 路径
+					{ name = 'path' },
+					-- buffer,当前buffer内容
+					{ name = 'buffer' },
+				}),
+			-- 使用lspkind-nvim显示类型图标
+			formatting = {
+				format = lspkind.cmp_format({
+					with_text = true, -- do not show text alongside icons
+					maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+					before = function(entry, vim_item)
+						-- Source 显示提示来源
+						vim_item.menu = "[" .. string.upper(entry.source.name) .. "]"
+						return vim_item
+					end
+				})
+			},
+
 		})
 
 		-- 定义git,/,:等操作时，选择cmp补全
