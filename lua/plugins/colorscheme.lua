@@ -4,6 +4,11 @@ return {
 		"RRethy/nvim-base16",
 		lazy = true,
 	},
+	-- 光标
+	{
+		"sphamba/smear-cursor.nvim",
+		opts = {},
+	}
 	-- {
 	-- 	"utilyre/barbecue.nvim",
 	-- 	dependencies = {

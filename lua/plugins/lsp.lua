@@ -27,10 +27,6 @@ return {
 	{
 		"williamboman/mason-lspconfig.nvim",
 	},
-	-- 格式化
-	{
-		"jose-elias-alvarez/null-ls.nvim"
-	},
 	-- lsp加载过程的ui界面
 	{
 		"j-hui/fidget.nvim",
