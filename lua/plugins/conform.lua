@@ -4,6 +4,6 @@ return {
 	event = { "BufWritePre", "InsertEnter" },
 	cmd = { "ConformInfo", "FormatEnable", "FormatDisable" },
 	config = function()
-		require("format")
+		require("config.format")
 	end,
 }

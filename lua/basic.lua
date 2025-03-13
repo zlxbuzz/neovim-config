@@ -8,7 +8,7 @@ vim.o.number = true
 vim.o.fileformats = unix
 -- utf8
 vim.g.encoding = "UTF-8"
-vim.o.fileencoding = 'utf-8'
+vim.o.fileencoding = "utf-8"
 -- 显示行号左侧图标指示列
 vim.o.signcolumn = "yes"
 -- 缩进2个空格等于一个Tab
@@ -48,4 +48,4 @@ vim.o.termguicolors = true
 vim.o.splitright = true
 
 -- 窗口复制模式
-vim.o.mouse = ''
+vim.o.mouse = ""

@@ -1,9 +1,9 @@
 {
-    "workspace.checkThirdParty": false,
-    "workspace.library": [
-        "/Users/zhonglingxiao/.local/share/nvim/lazy/neodev.nvim/types/stable",
-        "/opt/homebrew/Cellar/neovim/0.9.1/share/nvim/runtime/lua",
-        "./lua",
-        "${3rd}/luv/library"
-    ]
+	"workspace.checkThirdParty": false,
+	"workspace.library": [
+		"/Users/zhonglingxiao/.local/share/nvim/lazy/neodev.nvim/types/stable",
+		"/opt/homebrew/Cellar/neovim/0.9.1/share/nvim/runtime/lua",
+		"./lua",
+		"${3rd}/luv/library"
+	]
 }

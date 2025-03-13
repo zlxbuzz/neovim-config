@@ -9,14 +9,14 @@ return {
 			-- 美化展示lsp相关功能
 			require("lspsaga").setup()
 			-- 加载lsp_config文件
-			require('lsp_config')
+			require("config.lsp_config")
 		end,
 		dependencies = {
 			-- nvim lua api展示
 			"folke/neodev.nvim",
 			-- lsp更好的展示ui,比如K这些
-			"nvimdev/lspsaga.nvim"
-		}
+			"nvimdev/lspsaga.nvim",
+		},
 	},
 	-- 管理安装lsp,dap,formmat
 	{
@@ -33,7 +33,7 @@ return {
 		tag = "legacy",
 		event = "LspAttach",
 		config = function()
-			require("fidget").setup {}
-		end
-	}
+			require("fidget").setup({})
+		end,
+	},
 }

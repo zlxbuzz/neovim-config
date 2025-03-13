@@ -5,10 +5,10 @@ return {
 		lazy = true,
 	},
 	-- 光标
-	{
-		"sphamba/smear-cursor.nvim",
-		opts = {},
-	}
+	-- {
+	-- 	"sphamba/smear-cursor.nvim",
+	-- 	opts = {},
+	-- }
 	-- {
 	-- 	"utilyre/barbecue.nvim",
 	-- 	dependencies = {
