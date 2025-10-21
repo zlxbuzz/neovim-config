@@ -9,20 +9,6 @@ local servers = {
 			diagnostics = {
 				globals = { "vim", "hs" },
 			},
-			runtime = {
-				version = "LuaJIT",
-			},
-			workspace = {
-				checkThirdParty = false,
-				library = {
-					vim.env.VIMRUNTIME,
-					-- "${3rd}/luv/library"
-					"${3rd}/busted/library",
-				},
-			},
-			telemetry = {
-				enable = false,
-			},
 		},
 	},
 	eslint = {},
@@ -51,30 +37,14 @@ local servers = {
 			},
 		},
 	},
-	tailwindcss = {
-		settings = {
-			tailwindCSS = {
-				classAttributes = { "class", "className", "classList", "ngClass" },
-				lint = {
-					cssConflict = "warning",
-					invalidApply = "error",
-					invalidConfigPath = "error",
-					invalidScreen = "error",
-					invalidTailwindDirective = "error",
-					invalidVariant = "error",
-					recommendedVariantOrder = "warning",
-				},
-				validate = true,
-			},
-		},
-	},
+	tailwindcss = {},
 	tsserver = {
 		-- Volar 2.0不提供tsserver, 需要特殊配置全局install @vue/typescript-plugin
 		init_options = {
 			plugins = {
 				{
 					name = "@vue/typescript-plugin",
-					location = vim.fn.exepath("node") and vim.fn.resolve(vim.fn.exepath("node"):gsub("node$", "") .. "../lib/node_modules/@vue/typescript-plugin") or "/usr/local/lib/node_modules/@vue/typescript-plugin",
+					location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
 					languages = { "javascript", "typescript", "vue" },
 				},
 			},
@@ -87,31 +57,7 @@ local servers = {
 		},
 	},
 	html = {},
-	jsonls = {
-		settings = {
-			json = {
-				schemas = vim.list_extend(vim.fn.json_decode(vim.fn.system('npx --yes @apidevtools/json-schema-generator 2>/dev/null')) or {}, {}),
-				validate = {
-					enable = true,
-				},
-			},
-		},
-	},
-	yamlls = {},
-	bashls = {},
-	dockerls = {},
-	marksman = {},
-	pyright = {
-		settings = {
-			python = {
-				analysis = {
-					typeCheckingMode = "basic",
-					autoSearchPaths = true,
-					useLibraryCodeForTypes = true,
-				},
-			},
-		},
-	},
+	jsonls = {},
 	-- volar = {
 	-- 	filetypes = { 'typescript', 'javascript', 'vue' }
 	-- }
