@@ -32,8 +32,8 @@ vim.o.hlsearch = false
 vim.o.incsearch = true
 -- 高亮当前所在行
 vim.o.cursorline = true
--- 命令行高为2，提供足够的显示空间
-vim.o.cmdheight = 2
+-- 命令行高为1，节省空间
+vim.o.cmdheight = 1
 -- 底部无需显示模式，通过插件去处理
 vim.o.showmode = false
 -- 设置 timeoutlen 为等待键盘快捷键连击时间500毫秒，可根据需要设置
@@ -47,5 +47,22 @@ vim.o.termguicolors = true
 -- 分屏在右侧
 vim.o.splitright = true
 
--- 窗口复制模式
-vim.o.mouse = ""
+-- 启用鼠标
+vim.o.mouse = "a"
+-- 备份和撤销文件设置
+vim.o.backup = false
+vim.o.writebackup = false
+vim.o.swapfile = false
+vim.o.undodir = vim.fn.stdpath('data') .. '/undodir'
+vim.o.undofile = true
+-- 更好的搜索
+vim.o.grepprg = "rg --vimgrep"
+vim.o.grepformat = "%f:%l:%c:%m"
+-- 折叠
+vim.o.foldcolumn = '1'
+vim.o.foldlevel = 99
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+-- 更新时间
+vim.o.updatetime = 100

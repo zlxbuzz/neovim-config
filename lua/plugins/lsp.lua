@@ -16,6 +16,8 @@ return {
 			"folke/neodev.nvim",
 			-- lsp更好的展示ui,比如K这些
 			"nvimdev/lspsaga.nvim",
+			-- Git integration
+			"lewis6991/gitsigns.nvim",
 		},
 	},
 	-- 管理安装lsp,dap,formmat
@@ -30,7 +32,6 @@ return {
 	-- lsp加载过程的ui界面
 	{
 		"j-hui/fidget.nvim",
-		tag = "legacy",
 		event = "LspAttach",
 		config = function()
 			require("fidget").setup({})
