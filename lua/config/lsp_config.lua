@@ -11,7 +11,7 @@ local servers = {
 			},
 		},
 	},
-	eslint = {},
+	-- eslint = {},
 	cssls = {},
 	emmet_ls = {
 		filetypes = {
@@ -38,7 +38,7 @@ local servers = {
 		},
 	},
 	tailwindcss = {},
-	tsserver = {
+	ts_ls = {
 		-- Volar 2.0不提供tsserver, 需要特殊配置全局install @vue/typescript-plugin
 		init_options = {
 			plugins = {

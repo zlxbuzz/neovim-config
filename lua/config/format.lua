@@ -14,5 +14,6 @@ require("conform").setup({
 	-- 需要格式化的文件,一部分已经内置
 	formatters_by_ft = {
 		lua = { "stylua" },
+		vue = { "prettier" },
 	},
 })

@@ -5,13 +5,13 @@ return {
 		event = "VeryLazy",
 		config = function()
 			require("treesitter-context").setup({
-				enable = true,        -- Enable this plugin (Can be enabled/disabled later via commands)
-				max_lines = 1,        -- How many lines the window should span. Values <= 0 mean no limit.
+				enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+				max_lines = 1, -- How many lines the window should span. Values <= 0 mean no limit.
 				min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
 				line_numbers = true,
 				multiline_threshold = 20, -- Maximum number of lines to collapse for a single context line
 				trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-				mode = "cursor",      -- Line used to calculate context. Choices: 'cursor', 'topline'
+				mode = "cursor", -- Line used to calculate context. Choices: 'cursor', 'topline'
 				-- Separator between context and content. Should be a single character string, like '-'.
 				-- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
 				separator = nil,
@@ -37,8 +37,16 @@ return {
 				highlight = {
 					-- disable highlight for variable and package in file
 					enable = true,
+					-- 关闭额外的正则高亮
 					additional_vim_regex_highlighting = false,
-					disable = {},
+					-- 对大文件禁用高亮
+					disable = function(lang, buf)
+						local max_filesize = 100 * 1024
+						local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+						if ok and stats and stats.size > max_filesize then
+							return true
+						end
+					end,
 				},
 				indent = {
 					-- because it's buggy
