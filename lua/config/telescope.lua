@@ -42,7 +42,7 @@ vim.keymap.set("n", "<leader>fw", "<cmd>Telescope live_grep_args<cr>", { desc = 
 vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Find Diagnostics" })
 vim.keymap.set("n", "<leader>fr", builtin.resume, { desc = "Find Resume" })
 vim.keymap.set("n", "<leader>fg", "<cmd>Telescope git_submodules<cr>", { desc = "Find Git submodules" })
-vim.keymap.set("n", "<leader>ls", require("aerial").toggle, { desc = "Find Document Symbols" })
+-- vim.keymap.set("n", "<leader>ls", require("aerial").toggle, { desc = "Find Document Symbols" })
 vim.keymap.set("n", "<leader>fS", builtin.lsp_dynamic_workspace_symbols, { desc = "Find Workspace Symbols" })
 vim.keymap.set("n", "<leader>f/", function()
 	builtin.current_buffer_fuzzy_find(require("telescope.themes").get_ivy({

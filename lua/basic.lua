@@ -49,3 +49,12 @@ vim.o.splitright = true
 
 -- 窗口复制模式
 vim.o.mouse = ""
+
+-- 选中复制时高亮
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+	callback = function()
+		vim.highlight.on_yank()
+	end,
+})

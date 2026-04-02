@@ -1,4 +1,4 @@
 -- 括号颜色匹配
 return {
-	"HiPhish/rainbow-delimiters.nvim",
+	-- "HiPhish/rainbow-delimiters.nvim",
 }
