@@ -1,9 +1,16 @@
 -- 代码格式化
-return {
-	"stevearc/conform.nvim",
-	event = { "BufWritePre", "InsertEnter" },
-	cmd = { "ConformInfo", "FormatEnable", "FormatDisable" },
-	config = function()
-		require("config.format")
+vim.pack.add({
+	{
+		src = "https://github.com/stevearc/conform.nvim",
+	},
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*",
+	callback = function(args)
+		require("conform").format({ bufnr = args.buf })
 	end,
-}
+})
+
+-- 加载外部
+require("config.format")

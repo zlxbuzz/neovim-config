@@ -1,20 +1,15 @@
-return {
-	"coder/claudecode.nvim",
-	dependencies = { "folke/snacks.nvim" },
-	config = true,
-	opts = {
-		terminal = {
-			snacks_win_opts = {
-				wo = {
-					winblend = 100,
-					winhighlight = "NormalFloat:MyTransparentGroup",
-				},
-			},
-		},
+vim.pack.add({
+	{
+		src = "https://github.com/coder/claudecode.nvim",
 	},
+	"https://github.com/folke/snacks.nvim",
+})
+
+require("claudecode").setup({
+	terminal_cmd = "/Users/zhonglingxiao/.nvm/versions/node/v22.14.0/bin/claude", -- Point to local installation
 	keys = {
 		{ "<leader>a", nil, desc = "AI/Claude Code" },
-		{ "<leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
+		{ "<Leader>ac", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
 		{ "<leader>af", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
 		{ "<leader>ar", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
 		{ "<leader>aC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
@@ -31,4 +26,4 @@ return {
 		{ "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
 		{ "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
 	},
-}
+})
