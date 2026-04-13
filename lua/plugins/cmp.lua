@@ -1,120 +1,105 @@
 -- 补全插件
-return {
-	"hrsh7th/nvim-cmp",
-	dependencies = {
-		"hrsh7th/cmp-nvim-lsp", -- 基于lsp
-		"hrsh7th/cmp-buffer", -- 打开文件内容解析
-		"hrsh7th/cmp-path", -- 路径补全
-		"hrsh7th/cmp-cmdline", -- 解析命令行
-		"hrsh7th/nvim-cmp", -- 核心
-		"onsails/lspkind-nvim", -- 图标
-		{
-			"saadparwaiz1/cmp_luasnip",
-			dependencies = {
+-- https://github.com/patricorgi/dotfiles/blob/be835eb8e300b19421b418b6d435ff2e82e7d4c1/.config/nvim/lua/plugins/completion.lua#L4
+vim.pack.add({
+	{ src = "https://github.com/archie-judd/blink-cmp-words" },
+	{ src = "https://github.com/saghen/blink.cmp", version = "v1.8.0" },
+})
 
-				"L3MON4D3/LuaSnip",
-				dependencies = {
-					"rafamadriz/friendly-snippets",
+vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
+	group = vim.api.nvim_create_augroup("SetupCompletion", { clear = true }),
+	once = true,
+	callback = function()
+		require("blink.cmp").setup({
+			completion = {
+				documentation = {
+					auto_show = true,
+					window = {
+						border = "none",
+						scrollbar = false,
+					},
+				},
+				menu = {
+					border = "none",
+					auto_show = true,
+					auto_show_delay_ms = 0,
+					scrollbar = false,
 				},
 			},
-		},
-	},
-	config = function()
-		-- Set up nvim-cmp.
-		local has_words_before = function()
-			unpack = unpack or table.unpack
-			local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-			return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-		end
-
-		-- 加载friendly-snippets
-		require("luasnip.loaders.from_vscode").lazy_load()
-		local cmp = require("cmp")
-		local luasnip = require("luasnip")
-		local lspkind = require("lspkind")
-
-		cmp.setup({
-			snippet = {
-				expand = function(args)
-					-- 主要使用luadsnip
-					require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
-				end,
+			keymap = {
+				["<C-u>"] = { "scroll_documentation_up", "fallback" },
+				["<C-d>"] = { "scroll_documentation_down", "fallback" },
 			},
-			mapping = cmp.mapping.preset.insert({
-				["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-				["<Tab>"] = cmp.mapping(function(fallback)
-					if cmp.visible() then
-						cmp.select_next_item()
-					elseif luasnip.expand_or_jumpable() then
-						luasnip.expand_or_jump()
-					elseif has_words_before() then
-						cmp.complete()
-					else
-						fallback()
-					end
-				end, { "i", "s" }),
-				-- shift+tab 反过来选择
-				["<S-Tab>"] = cmp.mapping(function(fallback)
-					if cmp.visible() then
-						cmp.select_prev_item()
-					elseif luasnip.jumpable(-1) then
-						luasnip.jump(-1)
-					else
-						fallback()
-					end
-				end, { "i", "s" }),
-			}),
-			-- 设置补全的来源
-			sources = cmp.config.sources({
-				-- lsp
-				{ name = "nvim_lsp" },
-				{ name = "luasnip" }, -- For luasnip users.
-			}, {
-				-- 路径
-				{ name = "path" },
-				-- buffer,当前buffer内容
-				{ name = "buffer" },
-			}),
-			-- 使用lspkind-nvim显示类型图标
-			formatting = {
-				format = lspkind.cmp_format({
-					with_text = true, -- do not show text alongside icons
-					maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-					before = function(entry, vim_item)
-						-- Source 显示提示来源
-						vim_item.menu = "[" .. string.upper(entry.source.name) .. "]"
-						return vim_item
-					end,
-				}),
+			signature = {
+				enabled = true,
 			},
-		})
-
-		-- 定义git,/,:等操作时，选择cmp补全
-		-- Set configuration for specific filetype.
-		cmp.setup.filetype("gitcommit", {
-			sources = cmp.config.sources({
-				{ name = "git" }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
-			}, {
-				{ name = "buffer" },
-			}),
-		})
-
-		-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
-		cmp.setup.cmdline({ "/", "?" }, {
-			mapping = cmp.mapping.preset.cmdline(),
+			cmdline = {
+				completion = {
+					menu = {
+						auto_show = true,
+						-- border = "none",
+					},
+				},
+			},
 			sources = {
-				{ name = "buffer" },
-			},
-		})
+				providers = {
+					snippets = {
+						score_offset = 1000,
+						should_show_items = function(ctx) -- avoid triggering snippets after . " ' chars.
+							return ctx.trigger.initial_kind ~= "trigger_character"
+						end,
+					},
+					-- Use the thesaurus source
+					thesaurus = {
+						name = "blink-cmp-words",
+						module = "blink-cmp-words.thesaurus",
+						-- All available options
+						opts = {
+							-- A score offset applied to returned items.
+							-- By default the highest score is 0 (item 1 has a score of -1, item 2 of -2 etc..).
+							score_offset = 0,
 
-		-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-		cmp.setup.cmdline(":", {
-			mapping = cmp.mapping.preset.cmdline(),
-			sources = cmp.config.sources({
-				{ name = "path" },
-			}, {
-				{ name = "cmdline" },
-			}),
+							-- Default pointers define the lexical relations listed under each definition,
+							-- see Pointer Symbols below.
+							-- Default is as below ("antonyms", "similar to" and "also see").
+							definition_pointers = { "!", "&", "^" },
+
+							-- The pointers that are considered similar words when using the thesaurus,
+							-- see Pointer Symbols below.
+							-- Default is as below ("similar to", "also see" }
+							similarity_pointers = { "&", "^" },
+
+							-- The depth of similar words to recurse when collecting synonyms. 1 is similar words,
+							-- 2 is similar words of similar words, etc. Increasing this may slow results.
+							similarity_depth = 2,
+						},
+					},
+
+					-- Use the dictionary source
+					dictionary = {
+						name = "blink-cmp-words",
+						module = "blink-cmp-words.dictionary",
+						-- All available options
+						opts = {
+							-- The number of characters required to trigger completion.
+							-- Set this higher if completion is slow, 3 is default.
+							dictionary_search_threshold = 3,
+
+							-- See above
+							score_offset = 0,
+
+							-- See above
+							definition_pointers = { "!", "&", "^" },
+						},
+					},
+				},
+				-- Setup completion by filetype
+				per_filetype = {
+					text = { "dictionary" },
+					markdown = { "lsp", "thesaurus" },
+					typst = { "lsp", "snippets", "dictionary" },
+					tex = { "dictionary", "thesaurus" },
+				},
+			},
 		})
 	end,
-}
+})

@@ -1,17 +1,7 @@
 -- 将buffer文件通过标签栏展示
-return {
-	{
-		"romgrk/barbar.nvim",
-		dependencies = {
-			'lewis6991/gitsigns.nvim',  -- OPTIONAL: for git status
-			'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
-		},
-		init = function() vim.g.barbar_auto_setup = false end,
-		opts = {
-			-- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-			-- animation = true,
-			-- insert_at_start = true,
-			-- …etc.
-		}
-	}
-}
+vim.pack.add({
+	{ src = "https://github.com/romgrk/barbar.nvim" },
+	"https://github.com/lewis6991/gitsigns.nvim",
+	"https://github.com/nvim-tree/nvim-web-devicons",
+})
+require("barbar").setup({})

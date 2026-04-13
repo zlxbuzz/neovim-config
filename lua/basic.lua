@@ -5,7 +5,7 @@
 -- 行号展示
 vim.o.number = true
 -- 自动识别UNIX格式
-vim.o.fileformats = unix
+-- vim.o.fileformats = unix
 -- utf8
 vim.g.encoding = "UTF-8"
 vim.o.fileencoding = "utf-8"
@@ -46,9 +46,10 @@ vim.o.termguicolors = true
 -- vim.o.undofile = true
 -- 分屏在右侧
 vim.o.splitright = true
-
 -- 窗口复制模式
 vim.o.mouse = ""
+-- 窗口边框样式
+vim.opt.winborder = "rounded"
 
 -- 选中复制时高亮
 vim.api.nvim_create_autocmd("TextYankPost", {
