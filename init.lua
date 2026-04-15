@@ -21,5 +21,7 @@ require("plugins.ai")
 require("plugins.cmp")
 -- lsp
 require("plugins.lsp")
+-- treesitter
+require("plugins.treesitter")
 -- 插件初始化
 -- require("lazyinit")

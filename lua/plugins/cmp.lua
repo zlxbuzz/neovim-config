@@ -11,6 +11,7 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
 	callback = function()
 		require("blink.cmp").setup({
 			completion = {
+				-- 同时显示文档
 				documentation = {
 					auto_show = true,
 					window = {
@@ -26,9 +27,11 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
 				},
 			},
 			keymap = {
+				preset = "super-tab", -- tab 补全
 				["<C-u>"] = { "scroll_documentation_up", "fallback" },
 				["<C-d>"] = { "scroll_documentation_down", "fallback" },
 			},
+			-- 函数参数提示
 			signature = {
 				enabled = true,
 			},
@@ -42,12 +45,6 @@ vim.api.nvim_create_autocmd({ "InsertEnter", "CmdlineEnter" }, {
 			},
 			sources = {
 				providers = {
-					snippets = {
-						score_offset = 1000,
-						should_show_items = function(ctx) -- avoid triggering snippets after . " ' chars.
-							return ctx.trigger.initial_kind ~= "trigger_character"
-						end,
-					},
 					-- Use the thesaurus source
 					thesaurus = {
 						name = "blink-cmp-words",

@@ -4,28 +4,20 @@ vim.pack.add({
 })
 
 require("mason").setup()
+-- 添加lsp
 vim.lsp.enable("lua_ls")
+vim.lsp.enable("ts_ls")
 
 vim.api.nvim_create_autocmd("LspAttach", {
+	-- 避免重复定义
 	group = vim.api.nvim_create_augroup("SetupLSP", {}),
 	callback = function(event)
+		-- 拿到lsp客户端
 		local client = assert(vim.lsp.get_client_by_id(event.data.client_id))
-
-		-- [inlay hint]
-		if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-			vim.keymap.set("n", "<leader>th", function()
-				vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-			end, { buffer = event.buf, desc = "LSP: Toggle Inlay Hints" })
-		end
-
-		-- [folding]
-		if client and client:supports_method("textDocument/foldingRange") then
-			local win = vim.api.nvim_get_current_win()
-			vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
-		end
 
 		-- [keymaps]
 		vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
+		-- 跳转到定义
 		vim.keymap.set("n", "gd", function()
 			local params = vim.lsp.util.make_position_params(0, "utf-8")
 			vim.lsp.buf_request(0, "textDocument/definition", params, function(_, result, _, _)
@@ -36,6 +28,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 				end
 			end)
 		end, { buffer = event.buf, desc = "LSP: Goto Definition" })
+		-- 跳转到申明
 		vim.keymap.set("n", "gD", function()
 			local win = vim.api.nvim_get_current_win()
 			local width = vim.api.nvim_win_get_width(win)
@@ -122,6 +115,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 
 		-- Highlight words under cursor
+		-- 光标停留高亮选中
 		if
 			client
 			and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight)
@@ -140,6 +134,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 				callback = vim.lsp.buf.clear_references,
 			})
 
+			-- 断开时 清除高亮等信息
 			vim.api.nvim_create_autocmd("LspDetach", {
 				group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
 				callback = function(event2)
@@ -150,6 +145,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			})
 		end
 		vim.keymap.set("n", "]f", jump_to_current_function_end, { desc = "Jump to end of current function" })
+		-- 错误信息显示在虚拟行
 		vim.diagnostic.config({
 			virtual_text = true,
 			virtual_lines = false,
