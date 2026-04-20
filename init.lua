@@ -23,5 +23,9 @@ require("plugins.cmp")
 require("plugins.lsp")
 -- treesitter
 require("plugins.treesitter")
--- 插件初始化
--- require("lazyinit")
+-- snack
+require("plugins.snacks")
+-- noice
+require("plugins.noice")
+-- whichkey
+require("plugins.whichkey")
