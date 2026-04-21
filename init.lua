@@ -1,9 +1,6 @@
--- -- 提升速度
-vim.loader.enable()
 -- 基本设置
 require("basic")
 -- 按键绑定
---
 require("keybindings")
 -- 主题
 require("plugins.catppuccin")
