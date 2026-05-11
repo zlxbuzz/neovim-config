@@ -21,7 +21,7 @@ require("plugins.lsp")
 -- treesitter
 require("plugins.treesitter")
 -- snack
-require("plugins.snacks")
+require("plugins._snacks")
 -- noice
 require("plugins.noice")
 -- whichkey

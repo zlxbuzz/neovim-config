@@ -7,6 +7,7 @@ require("mason").setup()
 -- 添加lsp
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("ts_ls")
+vim.lsp.enable("vue_ls")
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	-- 避免重复定义
