@@ -9,7 +9,7 @@ require("plugins.neo-tree")
 -- 格式化
 require("plugins._conform")
 -- bufferline
-require("pkkklugins.bufferline")
+require("plugins.bufferline")
 -- lualine
 require("plugins.lualine")
 -- ai
