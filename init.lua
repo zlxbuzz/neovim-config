@@ -7,9 +7,9 @@ require("plugins.catppuccin")
 -- file explore
 require("plugins.neo-tree")
 -- 格式化
-require("plugins.conform")
+require("plugins._conform")
 -- bufferline
-require("plugins.bufferline")
+require("pkkklugins.bufferline")
 -- lualine
 require("plugins.lualine")
 -- ai
