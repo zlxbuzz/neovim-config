@@ -1,5 +1,9 @@
 {
   "plugins": {
+    "Comment.nvim": {
+      "rev": "e30b7f2008e52442154b66f7c519bfd2f1e32acb",
+      "src": "https://github.com/numToStr/Comment.nvim"
+    },
     "avante.nvim": {
       "rev": "8c84af0f09e5d9058362ac58401a8e7b047d826e",
       "src": "https://github.com/yetone/avante.nvim"
@@ -69,6 +73,10 @@
     "nvim-treesitter": {
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "nvim-ts-context-commentstring": {
+      "rev": "6141a40173c6efa98242dc951ed4b6f892c97027",
+      "src": "https://github.com/JoosepAlviste/nvim-ts-context-commentstring"
     },
     "nvim-web-devicons": {
       "rev": "d7462543c9e366c0d196c7f67a945eaaf5d99414",

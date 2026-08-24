@@ -1,0 +1,74 @@
+*codex.nvim.txt*  Neovim bridge for Codex CLI
+
+==============================================================================
+CONTENTS                                                *codex.nvim-contents*
+
+1. Setup                                                |codex.nvim-setup|
+2. Commands                                             |codex.nvim-commands|
+
+==============================================================================
+SETUP                                                     *codex.nvim-setup*
+
+The plugin is loaded from `plugin/codex.lua` and registers commands
+automatically.
+
+To override defaults:
+>
+  require("codex").setup({
+    command = "codex",
+    cwd = "git_root",
+    no_alt_screen = true,
+    terminal = {
+      provider = "float",
+      width = 0.72,
+      height = 0.75,
+      border = "rounded",
+      close_on_exit = true,
+      close_existing = true,
+      title = " 󰚩 Codex ",
+      zindex = 80,
+    },
+  })
+<
+
+`width` and `height` accept ratios between `0` and `1`, or fixed cell counts.
+`close_on_exit` closes the Codex terminal window after the CLI exits.
+`close_existing` keeps only one Codex floating terminal open at a time.
+
+==============================================================================
+COMMANDS                                               *codex.nvim-commands*
+
+:Codex [prompt]
+    Open an interactive Codex CLI session with an optional prompt. The current
+    file path, filetype, and cursor line are included as target context.
+
+:CodexAsk [prompt]
+    Alias for :Codex.
+
+:'<,'>CodexAskSelection
+    Ask Codex about the selected lines.
+
+:CodexExplain
+    Run `codex exec -` and write the answer to a scratch buffer.
+
+:CodexFix
+    Open Codex with current file metadata, diagnostics, current-file git diff,
+    and buffer content.
+
+:CodexReview [prompt]
+    Open `codex review --uncommitted` with optional custom instructions.
+
+:CodexExec [prompt]
+    Run `codex exec -` non-interactively and write the final output to a
+    scratch buffer.
+
+:CodexApply
+    Open a terminal running `codex apply`.
+
+:CodexClose
+    Close Codex windows opened by this plugin.
+
+The floating terminal can also be closed with <C-q> or <Esc><Esc>.
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:

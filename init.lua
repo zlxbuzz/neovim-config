@@ -2,6 +2,8 @@
 require("basic")
 -- 按键绑定
 require("keybindings")
+-- 注释
+require("plugins.comment")
 -- 主题
 require("plugins.catppuccin")
 -- file explore
@@ -14,6 +16,8 @@ require("plugins.bufferline")
 require("plugins.lualine")
 -- ai
 require("plugins.ai")
+-- codex
+require("plugins.codex")
 -- 补全
 require("plugins.cmp")
 -- lsp
