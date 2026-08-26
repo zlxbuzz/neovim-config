@@ -8,6 +8,7 @@ require("mason").setup()
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("ts_ls")
 vim.lsp.enable("vue_ls")
+vim.lsp.enable("jsonls")
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	-- 避免重复定义
